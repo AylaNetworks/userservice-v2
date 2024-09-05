@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Refer https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html#howto-configure-logback-for-logging
+-->
+<configuration>
+　　　<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+　　　　　 <encoder>
+　　　　　　　　　<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+　　　　　 </encoder>
+　　　</appender>
+     <appender name="ASYNC_CONSOLE"
+              class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
+        <appender-ref ref="STDOUT" />
+        <queueSize>1000</queueSize> <!-- default 256 -->
+        <includeCallerData>false</includeCallerData><!-- default false -->
+        <neverBlock>true</neverBlock><!-- default false, set to true to cause the
+			Appender not block the application and just drop the messages -->
+     </appender>
+　　　<root level="DEBUG">
+　　　　　　<appender-ref ref="STDOUT" />
+　　　</root>
+</configuration>
