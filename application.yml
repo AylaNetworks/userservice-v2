@@ -38,11 +38,11 @@ spring:
     url: jdbc:mysql://localhost:3306/users_local?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: Admin@123
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      primary-dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      primary-dialect: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
     properties:
       hibernate:
@@ -58,7 +58,7 @@ spring:
   logging:
     config: classpath:logback.xml
     level:
-      root: INFO
+      root: DEBUG
       org:
         springframework: INFO
       com.ayla.user: INFO

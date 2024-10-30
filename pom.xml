@@ -2,53 +2,94 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>3.3.3</version>-->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+<!--    </parent>-->
 
     <groupId>com.ayla.user</groupId>
     <artifactId>userservice-v2</artifactId>
-    <version>0.0.9-SNAPSHOT</version>
-    <name>userservice-v2</name>
-    <description>Ayla User Service - V2</description>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>User Service v2</name>
+    <packaging>pom</packaging>
 
     <properties>
+        <!-- Java Version -->
         <java.version>21</java.version>
+
+        <!-- Spring boot version -->
+        <spring.boot.version>3.3.3</spring.boot.version>
+        <spring-boot-maven-plugin.version>${spring.boot.version}</spring-boot-maven-plugin.version>
+
+        <!-- Project plugin versions -->
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+
+        <!-- Static code analysis lib versions -->
+        <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
+        <checkstyle.version>8.45</checkstyle.version>
+        <pmd.plugin.version>3.18.0</pmd.plugin.version>
+        <jacoco.version>0.8.10</jacoco.version>
     </properties>
 
+    <!-- Spring boot version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <!-- Spring boot dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
+            <version>${spring.boot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-actuator</artifactId>
-        </dependency>
+
+        <!-- Other dependencies -->
         <dependency>
             <groupId>javax.resource</groupId>
             <artifactId>javax.resource-api</artifactId>
             <version>1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.2</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -60,6 +101,8 @@
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>
         </dependency>
+
+        <!-- Swagger dependencies -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -70,13 +113,19 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.8.0</version>
         </dependency>
+
+        <!-- Common libraries -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
         </dependency>
+
+        <!-- Database driver -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+            <version>8.3.0</version>
         </dependency>
     </dependencies>
 
@@ -104,8 +153,70 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
+                <configuration>
+                    <mainClass>com.ayla.user.UserserviceV2Application</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!-- Static code analsis plugins -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.plugin.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>config/pmd/pmd.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

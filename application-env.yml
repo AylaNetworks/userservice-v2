@@ -38,7 +38,7 @@ spring:
     url: jdbc:mysql://${Values.global.db.user.host}:${Values.global.db.user.port}/${Values.global.db.user.database}?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: ${Values.global.secret.db.user.username}
     password: ${Values.global.secret.db.user.password}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       primary-dialect: org.hibernate.dialect.MySQL5InnoDBDialect
