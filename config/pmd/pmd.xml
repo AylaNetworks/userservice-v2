@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset name="Ayla"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        ruleset for Aylanetworks
+    </description>
+
+    <rule ref="rulesets/java/basic.xml" />
+    <rule ref="rulesets/java/unusedcode.xml" />
+    <rule ref="rulesets/java/imports.xml" />
+    <rule ref="rulesets/java/strings.xml">
+        <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="InsufficientStringBufferDeclaration"/>
+    </rule>
+    <rule ref="category/java/design.xml/NPathComplexity" />
+    <rule ref="category/java/design.xml/ExcessiveMethodLength" />
+    <rule ref="category/java/design.xml/ExcessiveParameterList" />
+    <rule ref="category/java/design.xml/CouplingBetweenObjects" />
+    <rule ref="category/java/bestpractices.xml/LooseCoupling" />
+    <rule ref="category/java/bestpractices.xml/GuardLogStatement">
+        <properties>
+            <property name="logLevels" value="finest,finer,fine" />
+            <property name="guardsMethods" value="isLoggable" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="GodClass"/>
+        <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
+        <exclude name="ConfusingTernary"/>
+        <exclude name="PreserveStackTrace"/>
+        <exclude name="ConstructorCallsOverridableMethod"/>
+        <exclude name="AvoidDeeplyNestedIfStmts"/>
+        <exclude name="AvoidReassigningParameters"/>
+        <exclude name="AccessorClassGeneration"/>
+        <exclude name="UncommentedEmptyConstructor"/>
+        <exclude name="ImmutableField"/>
+        <exclude name="UseVarargs"/>
+        <exclude name="UseUtilityClass"/>
+        <exclude name="DataClass"/>
+    </rule>
+    <rule ref="rulesets/java/sunsecure.xml"/>
+    <rule ref="rulesets/java/empty.xml"/>
+    <rule ref="rulesets/java/finalizers.xml"/>
+    <rule ref="rulesets/java/logging-java.xml"/>
+    <rule ref="rulesets/java/optimizations.xml">
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="PrematureDeclaration"/>
+        <exclude name="RedundantFieldInitializer"/>
+    </rule>
+</ruleset>
+
