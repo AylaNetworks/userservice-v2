@@ -23,7 +23,7 @@ RUN mkdir -p /ayla/userservice-v2 \
 USER root:root
 WORKDIR /ayla/userservice-v2
 
-COPY --from=builder /code/target/userservice-v2-*.jar app.jar
+COPY --from=builder /code/target/userservice-v2-*.jar current.jar
 COPY --from=builder /code/run.sh run.sh
 
 EXPOSE 8080
