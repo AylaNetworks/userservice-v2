@@ -1,0 +1,2 @@
+config:
+  userservice-v2: /application-env.yml
